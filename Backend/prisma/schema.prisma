@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  active
+  inactive
+}
+
+generator zod {
+  provider                         = "zod-prisma-types"
+  output                           = "../src/models" // default is ./generated/zod
+  useMultipleFiles                 = true // default is false
+  writeBarrelFiles                 = true // default is true
+  createInputTypes                 = true // default is false
+  createModelTypes                 = true // default is false
+  addInputTypeValidation           = true // default is false
+  addIncludeType                   = true // default is false
+  addSelectType                    = true // default is false
+  validateWhereUniqueInput         = true // default is false
+  createOptionalDefaultValuesTypes = true // default is false
+  createRelationValuesTypes        = true // default is false
+  createPartialTypes               = true // default is false
+  useDefaultValidators             = true // default is false
+  coerceDate                       = true // default is false
+  writeNullishInModelTypes         = true // default is false
+  // prismaClientPath                 = "./path/to/prisma/client" // default is client output path 
+}
+
+model User {
+  userId      String      @id @default(cuid()) @map("id_user")
+  username    String      @unique
+  password    String
+  name        String?
+  email       String      @unique
+  dataOfBirth DateTime    @map("date_of_birth")
+  phoneNumber String
+  adress      String
+  createdAt   DateTime    @default(now()) @map("created_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  deletedAt   DateTime?   @map("deleted_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  status      String      @default("active")
+  BoxChat     BoxChat[]
+  Messenger   Messenger[]
+
+  @@map("User")
+}
+
+model BoxChat {
+  boxChatId String      @id @default(cuid()) @map("id_box_fchat")
+  name      String
+  userId    String      @map("id_user")
+  // @DtoRelationCanConnectOnCreate
+  User      User        @relation(fields: [userId], references: [userId])
+  createdAt DateTime    @default(now()) @map("created_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  updatedAt DateTime    @updatedAt @map("updated_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  deletedAt DateTime?   @map("deleted_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  status    Status      @default(active)
+  Messenger Messenger[]
+
+  @@map("Box_Chat")
+}
+
+model Messenger {
+  messengerId String    @id @default(cuid()) @map("id_messenger")
+  content     String
+  boxChatId   String    @map("id_box_fchat")
+  // @DtoRelationCanConnectOnCreate
+  BoxChat     BoxChat   @relation(fields: [boxChatId], references: [boxChatId])
+  userId      String    @map("id_user")
+  // @DtoRelationCanConnectOnCreate
+  User        User      @relation(fields: [userId], references: [userId])
+  createdAt   DateTime  @default(now()) @map("created_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  deleteAt    DateTime? @map("deleted_at")
+  // @DtoCreateHidden
+  // @DtoUpdateHidden
+  status      Status    @default(active)
+
+  @@map("Messenger")
+}
