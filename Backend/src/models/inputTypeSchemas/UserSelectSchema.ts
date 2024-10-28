@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from './path/to/prisma/client';
 import { BoxChatFindManyArgsSchema } from "../outputTypeSchemas/BoxChatFindManyArgsSchema"
 import { MessengerFindManyArgsSchema } from "../outputTypeSchemas/MessengerFindManyArgsSchema"
 import { UserCountOutputTypeArgsSchema } from "../outputTypeSchemas/UserCountOutputTypeArgsSchema"
@@ -12,7 +12,8 @@ export const UserSelectSchema: z.ZodType<Prisma.UserSelect> = z.object({
   email: z.boolean().optional(),
   dataOfBirth: z.boolean().optional(),
   phoneNumber: z.boolean().optional(),
-  adress: z.boolean().optional(),
+  address: z.boolean().optional(),
+  salt: z.boolean().optional(),
   createdAt: z.boolean().optional(),
   updatedAt: z.boolean().optional(),
   deletedAt: z.boolean().optional(),

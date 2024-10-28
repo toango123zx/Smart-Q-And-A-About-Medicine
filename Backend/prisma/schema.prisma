@@ -35,7 +35,7 @@ generator zod {
   useDefaultValidators             = true // default is false
   coerceDate                       = true // default is false
   writeNullishInModelTypes         = true // default is false
-  // prismaClientPath                 = "./path/to/prisma/client" // default is client output path 
+  prismaClientPath                 = "./path/to/prisma/client" // default is client output path 
 }
 
 model User {
@@ -46,7 +46,8 @@ model User {
   email       String      @unique
   dataOfBirth DateTime    @map("date_of_birth")
   phoneNumber String
-  adress      String
+  address     String
+  salt        String
   createdAt   DateTime    @default(now()) @map("created_at")
   // @DtoCreateHidden
   // @DtoUpdateHidden
