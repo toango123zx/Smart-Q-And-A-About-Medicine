@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from './path/to/prisma/client';
 import { MessengerIncludeSchema } from '../inputTypeSchemas/MessengerIncludeSchema'
 import { MessengerWhereUniqueInputSchema } from '../inputTypeSchemas/MessengerWhereUniqueInputSchema'
 import { MessengerCreateInputSchema } from '../inputTypeSchemas/MessengerCreateInputSchema'

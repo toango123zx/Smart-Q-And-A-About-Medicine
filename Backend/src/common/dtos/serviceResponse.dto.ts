@@ -23,6 +23,6 @@ export const ServiceResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T | nu
   z.object({
     success: z.boolean(),
     message: z.string(),
-    data: dataSchema ? dataSchema.optional() : z.null(),
+    sumary: dataSchema ? dataSchema.optional() : z.null(),
     code: z.number(),
   });

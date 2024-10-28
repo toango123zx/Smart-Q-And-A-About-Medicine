@@ -7,3 +7,4 @@ export class ForbiddenException extends ClientException {
     super(StatusCodes.FORBIDDEN, 'The user does not have permission to make changes to this resource');
   }
 }
+
