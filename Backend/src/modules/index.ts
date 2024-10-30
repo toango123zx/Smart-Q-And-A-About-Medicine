@@ -1,4 +1,5 @@
 import { authRegistry, authRouter } from "./auth/auth.router";
+import { boxChatRouter } from "./boxChat/boxChat.router";
 import {
   healthCheckRegistry,
   healthCheckRouter,
@@ -7,4 +8,4 @@ import { userRouter } from "./user/user.root";
 
 export const Registries = [healthCheckRegistry, authRegistry];
 
-export const Modules = { healthCheckRouter, authRouter, userRouter };
+export const Modules = { healthCheckRouter, authRouter, userRouter, boxChatRouter};

@@ -69,7 +69,7 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2
       swagger-ui-express:
-        specifier: ^5.0.0
+        specifier: ^5.0.1
         version: 5.0.1(express@4.21.1)
       tsc:
         specifier: ^2.0.4

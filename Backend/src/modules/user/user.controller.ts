@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { Exception } from "@tsed/exceptions";
 import httpResponseDto from "../../common/dtos/httpResponse.dto";
-import { HttpResponseBodySuccessDto } from "../../common/dtos/httpResponseBodySuccess.dto";
+import { HttpResponseBodySuccessDto } from "../../common/dtos";
 import { UserService } from "./user.service";
-import { PaginationDto } from "@/common/dtos/pagination.dto";
-import { GetApiConfig } from "@/config/getApi.config";
+import { PaginationDto } from "@/common/dtos";
+import { GetApiConfig } from "@/config";
 import { UserResponsseDto } from "./schemas";
 
 export class UserController {
@@ -29,7 +29,7 @@ export class UserController {
   }
 
   async getInformationUser(req: Request, res: Response) {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const result = await this.userService.getInformationUser(userId);
 
     if (result instanceof Exception) {
@@ -43,7 +43,7 @@ export class UserController {
   }
 
   async updateInformationUser(req: Request, res: Response) {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const userData = req.body;
     const result = await this.userService.updateInformationUser(
       userId,

@@ -3,7 +3,7 @@ import { CreateUserDto } from "../user/schemas";
 import { AuthService } from "./auth.service";
 import { Exception } from "@tsed/exceptions";
 import httpResponseDto from "../../common/dtos/httpResponse.dto";
-import { HttpResponseBodySuccessDto } from "../../common/dtos/httpResponseBodySuccess.dto";
+import { HttpResponseBodySuccessDto } from "../../common/dtos";
 import { LoginRequestDto, LoginResponseDto } from "./schemas";
 
 export class AuthController {

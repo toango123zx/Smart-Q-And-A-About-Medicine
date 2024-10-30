@@ -2,12 +2,11 @@ import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import express, { Router } from "express";
 import { createApiResponse } from "../../swagger/openAPIResponseBuilders";
 import { UserCreateInputSchema } from "../user/schemas";
-import { HttpResponseBodySuccessDtoSchema } from "../../common/dtos/httpResponseBodySuccess.dto";
+import { HttpResponseBodySuccessDtoSchema } from "../../common/dtos";
 import { AuthController } from "./auth.controller";
 import { autoBind } from "../../common";
-import { ShemaSwaggerDto } from "../../common/middlewares/shemaSwagger.middleware";
+import { ShemaSwaggerDto } from "../../common/middlewares";
 import { LoginRequestDtoSchema } from "./schemas";
-import authMiddleware from "@/common/middlewares/auth.middleware";
 
 export const authRegistry = new OpenAPIRegistry();
 
