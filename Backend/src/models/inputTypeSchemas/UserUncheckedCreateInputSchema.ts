@@ -1,6 +1,7 @@
 import type { Prisma } from './path/to/prisma/client';
 
 import { z } from 'zod';
+import { StatusSchema } from './StatusSchema';
 import { BoxChatUncheckedCreateNestedManyWithoutUserInputSchema } from './BoxChatUncheckedCreateNestedManyWithoutUserInputSchema';
 import { MessengerUncheckedCreateNestedManyWithoutUserInputSchema } from './MessengerUncheckedCreateNestedManyWithoutUserInputSchema';
 
@@ -17,7 +18,7 @@ export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreat
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional().nullable(),
-  status: z.string().optional(),
+  status: z.lazy(() => StatusSchema).optional(),
   BoxChat: z.lazy(() => BoxChatUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   Messenger: z.lazy(() => MessengerUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();

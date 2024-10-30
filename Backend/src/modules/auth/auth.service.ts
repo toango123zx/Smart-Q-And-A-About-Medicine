@@ -15,6 +15,7 @@ import { LoginRequestDto, LoginResponseDto } from "./schemas";
 
 export class AuthService {
   constructor(private readonly userRepository = new UserRepository()) {}
+  
   async register(
     userData: CreateUserDto
   ): Promise<HttpResponseBodySuccessDto<CreateUserDto> | Exception> {

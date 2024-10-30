@@ -6,6 +6,8 @@ import { StringFilterSchema } from './StringFilterSchema';
 import { StringNullableFilterSchema } from './StringNullableFilterSchema';
 import { DateTimeFilterSchema } from './DateTimeFilterSchema';
 import { DateTimeNullableFilterSchema } from './DateTimeNullableFilterSchema';
+import { EnumStatusFilterSchema } from './EnumStatusFilterSchema';
+import { StatusSchema } from './StatusSchema';
 import { BoxChatListRelationFilterSchema } from './BoxChatListRelationFilterSchema';
 import { MessengerListRelationFilterSchema } from './MessengerListRelationFilterSchema';
 
@@ -53,7 +55,7 @@ export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> 
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   deletedAt: z.union([ z.lazy(() => DateTimeNullableFilterSchema),z.coerce.date() ]).optional().nullable(),
-  status: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  status: z.union([ z.lazy(() => EnumStatusFilterSchema),z.lazy(() => StatusSchema) ]).optional(),
   BoxChat: z.lazy(() => BoxChatListRelationFilterSchema).optional(),
   Messenger: z.lazy(() => MessengerListRelationFilterSchema).optional()
 }).strict());

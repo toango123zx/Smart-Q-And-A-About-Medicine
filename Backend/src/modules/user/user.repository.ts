@@ -4,6 +4,14 @@ import { PrismaService, Prisma } from "../database";
 export class UserRepository {
   constructor(private readonly prismaService = new PrismaService()) {}
 
+  async findUserById(userId: string): Promise<User | null> {
+    return await this.prismaService.user.findFirst({
+      where: {
+        userId: userId,
+      },
+    });
+  }
+
   async findUserByUsername(username: string): Promise<User | null> {
     return await this.prismaService.user.findUnique({
       where: {
@@ -20,13 +28,30 @@ export class UserRepository {
     });
   }
 
+  async getAllUsers(skip: number, take: number): Promise<[User[], number]> {
+    const [users, totalRecords] = await Promise.all([
+      this.prismaService.user.findMany({
+        where: {
+          status: "active",
+        },
+        skip: skip,
+        take: take,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      this.prismaService.user.count({
+        where: {
+          status: "active",
+        },
+      }),
+    ]);
+    return [users, totalRecords];
+  }
+
   async createUser(user: Prisma.UserCreateInput): Promise<User> {
     return await this.prismaService.user.create({
       data: user,
     });
-  }
-  
-  async test() {
-    return "test";
   }
 }
