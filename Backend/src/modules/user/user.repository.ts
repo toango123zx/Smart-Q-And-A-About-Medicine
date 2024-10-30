@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import { PrismaService, Prisma } from "../database";
+import { UserUpdateDto } from "./schemas/request/updateUser.request";
 
 export class UserRepository {
   constructor(private readonly prismaService = new PrismaService()) {}
@@ -8,6 +9,7 @@ export class UserRepository {
     return await this.prismaService.user.findFirst({
       where: {
         userId: userId,
+        status: "active",
       },
     });
   }
@@ -52,6 +54,16 @@ export class UserRepository {
   async createUser(user: Prisma.UserCreateInput): Promise<User> {
     return await this.prismaService.user.create({
       data: user,
+    });
+  }
+
+  async updateUser(userId: string, userData: UserUpdateDto): Promise<User> {
+    return await this.prismaService.user.update({
+      where: {
+        userId: userId,
+        status: "active",
+      },
+      data: userData,
     });
   }
 }

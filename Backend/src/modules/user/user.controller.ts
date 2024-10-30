@@ -5,6 +5,7 @@ import { HttpResponseBodySuccessDto } from "../../common/dtos/httpResponseBodySu
 import { UserService } from "./user.service";
 import { PaginationDto } from "@/common/dtos/pagination.dto";
 import { GetApiConfig } from "@/config/getApi.config";
+import { UserResponsseDto } from "./schemas";
 
 export class UserController {
   constructor(private readonly userService = new UserService()) {}
@@ -37,6 +38,24 @@ export class UserController {
     }
     httpResponseDto.success<any>(
       result as HttpResponseBodySuccessDto<any>,
+      res
+    );
+  }
+
+  async updateInformationUser(req: Request, res: Response) {
+    const userId = req.params.id;
+    const userData = req.body;
+    const result = await this.userService.updateInformationUser(
+      userId,
+      userData
+    );
+
+    if (result instanceof Exception) {
+      httpResponseDto.exception(result, res);
+      return;
+    }
+    httpResponseDto.success<UserResponsseDto>(
+      result as HttpResponseBodySuccessDto<UserResponsseDto>,
       res
     );
   }
