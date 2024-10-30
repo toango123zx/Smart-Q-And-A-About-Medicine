@@ -15,5 +15,7 @@ autoBind(boxChatController);
 router.get("/", authMiddleware.verifyToken, boxChatController.getBoxsChatByUserId);
 router.get("/:id", authMiddleware.verifyToken, boxChatController.getBoxChatById);
 router.post("/", authMiddleware.verifyToken, boxChatController.createBoxChat);
+router.patch("/:id", authMiddleware.verifyToken, boxChatController.updateNameBoxChat);
+router.delete("/:id", authMiddleware.verifyToken, boxChatController.deleteBoxChat);
 
 export const boxChatRouter: Router = router;

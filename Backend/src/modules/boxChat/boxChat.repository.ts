@@ -49,4 +49,30 @@ export class BoxChatRepository {
       data: boxChat,
     });
   }
+
+  async updateNameBoxChat(userId: string, boxChatId: string, name: string) {
+    return await this.prismaService.boxChat.update({
+      where: {
+        boxChatId: boxChatId,
+        userId: userId,
+        status: "active",
+      },
+      data: {
+        name: name,
+      },
+    });
+  }
+
+  async deleteBoxChat(userId: string, boxChatId: string) {
+    return await this.prismaService.boxChat.update({
+      where: {
+        boxChatId: boxChatId,
+        userId: userId,
+        status: "active",
+      },
+      data: {
+        status: "inactive",
+      },
+    });
+  }
 }

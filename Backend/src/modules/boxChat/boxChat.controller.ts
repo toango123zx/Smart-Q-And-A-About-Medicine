@@ -58,4 +58,39 @@ export class BoxChatController {
     }
     httpResponseDto.created<any>(result, res);
   }
+
+  async updateNameBoxChat(req: Request, res: Response) {
+    const userId = req.body.userId;
+    const boxChatId = req.params.id;
+    const name = req.body.name;
+
+    const result = await this.boxChatService.updateNameBoxChat(
+      userId,
+      boxChatId,
+      name
+    );
+    if (result instanceof Exception) {
+      httpResponseDto.exception(result, res);
+      return;
+    }
+    httpResponseDto.success<any>(
+      result as HttpResponseBodySuccessDto<any>,
+      res
+    );
+  }
+
+  async deleteBoxChat(req: Request, res: Response) {
+    const userId = req.body.userId;
+    const boxChatId = req.params.id;
+
+    const result = await this.boxChatService.deleteBoxChat(userId, boxChatId);
+    if (result instanceof Exception) {
+      httpResponseDto.exception(result, res);
+      return;
+    }
+    httpResponseDto.success<any>(
+      result as HttpResponseBodySuccessDto<any>,
+      res
+    );
+  }
 }
