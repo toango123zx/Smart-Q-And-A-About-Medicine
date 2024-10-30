@@ -19,5 +19,10 @@ router.get(
   authMiddleware.verifyToken,
   messengerController.findMessengerById
 );
+router.post(
+  "/",
+  authMiddleware.verifyToken,
+  messengerController.createMessenger
+);
 
 export const messengerRouter: Router = router;

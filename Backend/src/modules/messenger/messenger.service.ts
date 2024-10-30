@@ -2,10 +2,13 @@ import { HttpResponseBodySuccessDto } from "@/common";
 import { MessengerRepsitory } from "./messenger.repository";
 import { Exception } from "@tsed/exceptions";
 import { InternalServerException, NotFoundException } from "@/exceptions";
+import { Messenger, User } from "@prisma/client";
+import { BoxChatRepository } from "../boxChat/boxChat.repository";
 
 export class MessengerService {
   constructor(
-    private readonly messengerRepository = new MessengerRepsitory()
+    private readonly messengerRepository = new MessengerRepsitory(),
+    private readonly boxChatRespository = new BoxChatRepository()
   ) {}
 
   async findMessengerById(
@@ -20,6 +23,32 @@ export class MessengerService {
       if (!messenger) {
         return new NotFoundException("messengerId");
       }
+      return { data: messenger };
+    } catch (error) {
+      throw new InternalServerException();
+    }
+  }
+
+  async createMessenger(
+    userId: string,
+    boxChatId: string,
+    content: string
+  ): Promise<HttpResponseBodySuccessDto<Messenger> | Exception> {
+    try {
+      const boxChat = await this.boxChatRespository.findBoxChatById(
+        boxChatId,
+        userId
+      );
+
+      if (!boxChat) {
+        return new NotFoundException("boxChatId");
+      }
+
+      const messenger = await this.messengerRepository.createMessenger(
+        userId,
+        boxChatId,
+        content
+      );
       return { data: messenger };
     } catch (error) {
       throw new InternalServerException();
