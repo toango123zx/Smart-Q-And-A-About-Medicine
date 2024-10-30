@@ -47,4 +47,15 @@ export class BoxChatController {
       res
     );
   }
+
+  async createBoxChat(req: Request, res: Response) {
+    const userId = req.body.userId;
+    const boxChatData = req.body;
+    const result = await this.boxChatService.createBoxChat(userId, boxChatData);
+    if (result instanceof Exception) {
+      httpResponseDto.exception(result, res);
+      return;
+    }
+    httpResponseDto.created<any>(result, res);
+  }
 }

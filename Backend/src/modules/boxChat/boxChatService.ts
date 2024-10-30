@@ -3,6 +3,7 @@ import { HttpResponseBodySuccessDto } from "@/common/dtos";
 import { Exception } from "@tsed/exceptions";
 import { InternalServerException, NotFoundException } from "@/exceptions";
 import { PaginationDto } from "@/common/dtos";
+import { BoxChatCreateRequestDto } from "./schemas";
 
 export class BoxChatService {
   constructor(private readonly boxChatRepository = new BoxChatRepository()) {}
@@ -39,11 +40,22 @@ export class BoxChatService {
       const totalPage = Math.ceil(totalRecords / Number(pagination.limit));
       return { data: boxsChat, totalPage: totalPage };
     } catch (error) {
-      console.log(
-        `🚀 ~ file: boxChatService.ts:39 ~ BoxChatService ~ error:`,
-        error
-      );
+      throw new InternalServerException();
+    }
+  }
 
+  async createBoxChat(
+    userId: string,
+    boxChatData: BoxChatCreateRequestDto
+  ): Promise<HttpResponseBodySuccessDto<any> | Exception> {
+    try {
+      const boxChat = {
+        ...boxChatData,
+        userId: userId,
+      };
+      const newBoxChat = await this.boxChatRepository.createBoxChat(boxChat);
+      return { data: newBoxChat };
+    } catch (error) {
       throw new InternalServerException();
     }
   }
