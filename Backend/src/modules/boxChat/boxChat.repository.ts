@@ -1,4 +1,5 @@
 import { PrismaService } from "../database";
+import { BoxChatCreateRequestDto } from "./schemas";
 
 export class BoxChatRepository {
   constructor(private readonly prismaService = new PrismaService()) {}
@@ -41,5 +42,11 @@ export class BoxChatRepository {
       }),
     ]);
     return [BoxsChat, totalRecords];
+  }
+
+  async createBoxChat(boxChat: BoxChatCreateRequestDto) {
+    return await this.prismaService.boxChat.create({
+      data: boxChat,
+    });
   }
 }
