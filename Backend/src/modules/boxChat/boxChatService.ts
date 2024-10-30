@@ -59,4 +59,50 @@ export class BoxChatService {
       throw new InternalServerException();
     }
   }
+
+  async updateNameBoxChat(
+    userId: string,
+    boxChatId: string,
+    name: string
+  ): Promise<HttpResponseBodySuccessDto<any> | Exception> {
+    try {
+      const boxChat = await this.boxChatRepository.findBoxChatById(
+        boxChatId,
+        userId
+      );
+      if (!boxChat) {
+        return new NotFoundException("boxChatId");
+      }
+      const updatedBoxChat = await this.boxChatRepository.updateNameBoxChat(
+        userId,
+        boxChatId,
+        name
+      );
+      return { data: updatedBoxChat };
+    } catch (error) {
+      throw new InternalServerException();
+    }
+  }
+
+  async deleteBoxChat(
+    userId: string,
+    boxChatId: string
+  ): Promise<HttpResponseBodySuccessDto<any> | Exception> {
+    try {
+      const boxChat = await this.boxChatRepository.findBoxChatById(
+        boxChatId,
+        userId
+      );
+      if (!boxChat) {
+        return new NotFoundException("boxChatId");
+      }
+      const deletedBoxChat = await this.boxChatRepository.deleteBoxChat(
+        userId,
+        boxChatId
+      );
+      return { data: deletedBoxChat };
+    } catch (error) {
+      throw new InternalServerException();
+    }
+  }
 }
