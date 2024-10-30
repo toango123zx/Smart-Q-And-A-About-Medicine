@@ -1,5 +1,10 @@
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-const { PrismaClient } = require('@prisma/client');
-const PrismaService = new PrismaClient();
+import { Prisma, PrismaClient } from "@prisma/client";
 
-export { PrismaService, PrismaClientKnownRequestError };
+export class PrismaService extends PrismaClient<
+  Prisma.PrismaClientOptions,
+  "query" | "beforeExit"
+> {
+  constructor() {
+    super();
+  }
+}

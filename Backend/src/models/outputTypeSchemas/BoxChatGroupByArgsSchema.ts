@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from './path/to/prisma/client';
 import { BoxChatWhereInputSchema } from '../inputTypeSchemas/BoxChatWhereInputSchema'
 import { BoxChatOrderByWithAggregationInputSchema } from '../inputTypeSchemas/BoxChatOrderByWithAggregationInputSchema'
 import { BoxChatScalarFieldEnumSchema } from '../inputTypeSchemas/BoxChatScalarFieldEnumSchema'

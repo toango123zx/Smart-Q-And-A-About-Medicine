@@ -7,3 +7,4 @@ export class ConflictException extends ClientException {
     super(StatusCodes.CONFLICT, `Resources already exist ${resource}`);
   }
 }
+

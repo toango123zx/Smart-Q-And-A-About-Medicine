@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from './path/to/prisma/client';
 import { BoxChatArgsSchema } from "../outputTypeSchemas/BoxChatArgsSchema"
 import { UserArgsSchema } from "../outputTypeSchemas/UserArgsSchema"
 

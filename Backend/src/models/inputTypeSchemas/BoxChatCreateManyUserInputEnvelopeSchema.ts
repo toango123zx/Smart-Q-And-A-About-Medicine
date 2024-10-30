@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from './path/to/prisma/client';
 
 import { z } from 'zod';
 import { BoxChatCreateManyUserInputSchema } from './BoxChatCreateManyUserInputSchema';
