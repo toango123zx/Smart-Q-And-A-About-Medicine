@@ -4,6 +4,7 @@ import { JsonWebTokenError, verify } from "jsonwebtoken";
 import httpResponseDto from "../dtos/httpResponse.dto";
 import { UnauthorizedException } from "@/exceptions/unauthorized.exception";
 import { InternalServerException } from "@/exceptions";
+import { JwtDecodeRequestDto } from "@/modules/auth/schemas";
 
 class AuthMiddleware {
   constructor() {}
@@ -17,8 +18,8 @@ class AuthMiddleware {
         return;
       }
 
-      const userId = verify(accessToken, JWTConfig.JWT_SECRET_KEY);
-      req.body.userId = userId;
+      const userId = verify(accessToken, JWTConfig.JWT_SECRET_KEY) as JwtDecodeRequestDto;
+      req.body.userId = userId.id;
       next();
       return;
     } catch (error) {
