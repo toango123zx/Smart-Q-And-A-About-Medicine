@@ -30,4 +30,20 @@ export class MessengerRepsitory {
       },
     });
   }
+
+  async deleteMessenger(userId: string, messengerId: string) {
+    return await this.prismaService.messenger.update({
+      where: {
+        messengerId: messengerId,
+        BoxChat: {
+          userId: userId,
+        },
+        status: "active",
+      },
+      data: {
+        status: "inactive",
+        deleteAt: new Date(),
+      },
+    });
+  }
 }

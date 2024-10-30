@@ -41,4 +41,21 @@ export class MessengerController {
       res
     );
   }
+
+  async deleteMessenger(req: Request, res: Response) {
+    const userId = req.body.userId;
+    const messengerId = req.params.id;
+    const result = await this.messengerService.deleteMessenger(
+      userId,
+      messengerId
+    );
+    if (result instanceof Error) {
+      httpResponseDto.exception(result, res);
+      return;
+    }
+    httpResponseDto.success<any>(
+      result as HttpResponseBodySuccessDto<any>,
+      res
+    );
+  }
 }

@@ -71,6 +71,7 @@ export class BoxChatRepository {
         status: "active",
       },
       data: {
+        deletedAt: new Date(),
         status: "inactive",
       },
     });

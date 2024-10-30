@@ -24,5 +24,10 @@ router.post(
   authMiddleware.verifyToken,
   messengerController.createMessenger
 );
+router.delete(
+  "/:id",
+  authMiddleware.verifyToken,
+  messengerController.deleteMessenger
+);
 
 export const messengerRouter: Router = router;
