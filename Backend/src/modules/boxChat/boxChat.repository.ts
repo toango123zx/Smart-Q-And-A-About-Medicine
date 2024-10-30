@@ -68,6 +68,7 @@ export class BoxChatRepository {
       where: {
         boxChatId: boxChatId,
         userId: userId,
+        deletedAt: new Date(),
         status: "active",
       },
       data: {
