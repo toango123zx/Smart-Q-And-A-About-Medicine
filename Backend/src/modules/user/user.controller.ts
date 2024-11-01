@@ -41,4 +41,22 @@ export class UserController {
       res
     );
   }
+
+  async updateInformationUser(req: Request, res: Response) {
+    const userId = req.params.id;
+    const userData = req.body;
+    const result = await this.userService.updateInformationUser(
+      userId,
+      userData
+    );
+
+    if (result instanceof Exception) {
+      httpResponseDto.exception(result, res);
+      return;
+    }
+    httpResponseDto.success<UserResponsseDto>(
+      result as HttpResponseBodySuccessDto<UserResponsseDto>,
+      res
+    );
+  }
 }
