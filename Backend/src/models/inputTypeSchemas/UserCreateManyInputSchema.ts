@@ -1,6 +1,7 @@
 import type { Prisma } from './path/to/prisma/client';
 
 import { z } from 'zod';
+import { StatusSchema } from './StatusSchema';
 
 export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = z.object({
   userId: z.string().cuid().optional(),
@@ -15,7 +16,7 @@ export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = 
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional().nullable(),
-  status: z.string().optional()
+  status: z.lazy(() => StatusSchema).optional()
 }).strict();
 
 export default UserCreateManyInputSchema;

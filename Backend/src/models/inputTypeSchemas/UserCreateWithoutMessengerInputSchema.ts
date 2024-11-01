@@ -1,6 +1,7 @@
 import type { Prisma } from './path/to/prisma/client';
 
 import { z } from 'zod';
+import { StatusSchema } from './StatusSchema';
 import { BoxChatCreateNestedManyWithoutUserInputSchema } from './BoxChatCreateNestedManyWithoutUserInputSchema';
 
 export const UserCreateWithoutMessengerInputSchema: z.ZodType<Prisma.UserCreateWithoutMessengerInput> = z.object({
@@ -16,7 +17,7 @@ export const UserCreateWithoutMessengerInputSchema: z.ZodType<Prisma.UserCreateW
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional().nullable(),
-  status: z.string().optional(),
+  status: z.lazy(() => StatusSchema).optional(),
   BoxChat: z.lazy(() => BoxChatCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 

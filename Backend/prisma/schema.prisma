@@ -57,7 +57,7 @@ model User {
   deletedAt   DateTime?   @map("deleted_at")
   // @DtoCreateHidden
   // @DtoUpdateHidden
-  status      String      @default("active")
+  status      Status      @default(active)
   BoxChat     BoxChat[]
   Messenger   Messenger[]
 
