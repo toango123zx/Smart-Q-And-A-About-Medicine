@@ -1,15 +1,14 @@
 import { Prisma } from "@prisma/client";
-import { ZodRequestBody } from "@asteasolutions/zod-to-openapi";
 import { z } from "zod";
 
-export interface CreateUserDto extends Prisma.UserCreateInput {}
+export interface UserUpdateDto extends Prisma.UserUpdateInput {}
 
-export const UserCreateInputSchema = z.object({
+export const UserUpdateInputSchema = z.object({
   username: z.string(),
   password: z.string(),
   name: z.string().optional().nullable(),
   email: z.string(),
-  dataOfBirth: z.coerce.date(),
+  dataOfBirth: z.date(),
   phoneNumber: z.string(),
   address: z.string(),
 });

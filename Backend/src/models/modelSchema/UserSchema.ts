@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { StatusSchema } from '../inputTypeSchemas/StatusSchema'
 import type { BoxChatWithRelations } from './BoxChatSchema'
 import type { BoxChatPartialWithRelations } from './BoxChatSchema'
 import type { BoxChatOptionalDefaultsWithRelations } from './BoxChatSchema'
@@ -17,6 +18,7 @@ import { MessengerOptionalDefaultsWithRelationsSchema } from './MessengerSchema'
 /////////////////////////////////////////
 
 export const UserSchema = z.object({
+  status: StatusSchema,
   userId: z.string().cuid(),
   username: z.string(),
   password: z.string(),
@@ -29,7 +31,6 @@ export const UserSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
   deletedAt: z.coerce.date().nullish(),
-  status: z.string(),
 })
 
 export type User = z.infer<typeof UserSchema>
@@ -47,10 +48,10 @@ export type UserPartial = z.infer<typeof UserPartialSchema>
 /////////////////////////////////////////
 
 export const UserOptionalDefaultsSchema = UserSchema.merge(z.object({
+  status: StatusSchema.optional(),
   userId: z.string().cuid().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  status: z.string().optional(),
 }))
 
 export type UserOptionalDefaults = z.infer<typeof UserOptionalDefaultsSchema>

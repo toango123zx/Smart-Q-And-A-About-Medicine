@@ -1,2 +1,2 @@
-export * from "./user.schema";
-export * from "./createUser.schema";
+export * from "./request";
+export * from "./response";

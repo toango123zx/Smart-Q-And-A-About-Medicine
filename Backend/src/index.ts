@@ -21,16 +21,16 @@ app.set("trust proxy", true);
 // Middlewares
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(helmet());
-app.use(morgan('combined'));
+app.use(morgan("combined"));
 
-app.use('/health-check', Modules.healthCheckRouter);
-app.use('/auth', authRouter);
+app.use("/health-check", Modules.healthCheckRouter);
+app.use("/auth", authRouter);
+app.use("/user", Modules.userRouter);
 
 app.use(openAPIRouter);
 
 // Error handlers
 app.use(errorHandler());
-
 
 app.listen(env.PORT, () => {
   const { NODE_ENV, HOST, PORT } = env;
