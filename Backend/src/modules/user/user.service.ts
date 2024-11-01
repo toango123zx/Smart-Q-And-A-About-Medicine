@@ -7,7 +7,7 @@ import { PaginationDto } from "@/common/dtos/pagination.dto";
 import { UserUpdateDto } from "./schemas/request/updateUser.request";
 
 export class UserService {
-  constructor(private readonly userRepository = new UserRepository()) {}
+  constructor(private readonly userRepository = new UserRepository()) { }
 
   async getAllUsers(
     pagination: PaginationDto
@@ -38,6 +38,24 @@ export class UserService {
       }
 
       return { data: user };
+    } catch (error) {
+      throw new InternalServerException();
+    }
+  }
+
+  async updateInformationUser(userId: string, userData: UserUpdateDto): Promise<HttpResponseBodySuccessDto<UserResponsseDto> | Exception> {
+    try {
+      const user = await this.userRepository.findUserById(userId);
+
+      if (!user) {
+        return new NotFoundException("userId");
+      }
+
+      const updatedUser = await this.userRepository.updateUser(
+        userId,
+        userData
+      );
+      return { data: updatedUser };
     } catch (error) {
       throw new InternalServerException();
     }

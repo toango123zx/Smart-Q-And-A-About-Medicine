@@ -3,7 +3,7 @@ import { PrismaService, Prisma } from "../database";
 import { UserUpdateDto } from "./schemas/request/updateUser.request";
 
 export class UserRepository {
-  constructor(private readonly prismaService = new PrismaService()) {}
+  constructor(private readonly prismaService = new PrismaService()) { }
 
   async findUserById(userId: string): Promise<User | null> {
     return await this.prismaService.user.findFirst({
@@ -57,4 +57,13 @@ export class UserRepository {
     });
   }
 
+  async updateUser(userId: string, userData: UserUpdateDto): Promise<User> {
+    return await this.prismaService.user.update({
+      where: {
+        userId: userId,
+        status: "active",
+      },
+      data: userData,
+    });
+  }
 }

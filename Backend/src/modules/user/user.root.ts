@@ -18,5 +18,6 @@ autoBind(userController);
 
 router.get("", userController.getAllUsers);
 router.get("/:id", userController.getInformationUser);
+router.patch("/:id", userController.updateInformationUser);
 
 export const userRouter: Router = router;
