@@ -2,13 +2,12 @@ import { UserRepository } from "../user/user.repository";
 import { CreateUserDto } from "../user/schemas";
 import {
   ConflictException,
-  ForbiddenException,
   InternalServerException,
 } from "../../exceptions";
 import { compare, genSalt, hash } from "bcryptjs";
-import { HttpResponseBodySuccessDto } from "../../common/dtos/httpResponseBodySuccess.dto";
+import { HttpResponseBodySuccessDto } from "../../common/dtos";
 import { Exception, NotFound } from "@tsed/exceptions";
-import { UnauthorizedException } from "../../exceptions/unauthorized.exception";
+import { UnauthorizedException } from "../../exceptions";
 import { sign } from "jsonwebtoken";
 import { JWTConfig } from "../../config";
 import { LoginRequestDto, LoginResponseDto } from "./schemas";
