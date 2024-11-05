@@ -27,6 +27,7 @@ app.use("/health-check", Modules.healthCheckRouter);
 app.use("/auth", authRouter);
 app.use("/user", Modules.userRouter);
 app.use("/box-chat", Modules.boxChatRouter);
+app.use("/messenger", Modules.messengerRouter);
 
 app.use(openAPIRouter);
 
