@@ -1,3 +1,4 @@
+import { Messenger } from "@prisma/client";
 import { PrismaService } from "../database";
 
 export class MessengerRepsitory {
@@ -12,6 +13,20 @@ export class MessengerRepsitory {
           userId: userId,
           status: "active",
         },
+      },
+    });
+  }
+
+  async createMessenger(
+    userId: string,
+    boxChatId: string,
+    content: string
+  ): Promise<Messenger> {
+    return await this.prismaService.messenger.create({
+      data: {
+        content: content,
+        boxChatId: boxChatId,
+        userId: userId,
       },
     });
   }
