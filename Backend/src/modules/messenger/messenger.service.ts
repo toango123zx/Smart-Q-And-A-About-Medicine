@@ -54,4 +54,25 @@ export class MessengerService {
       throw new InternalServerException();
     }
   }
+
+  async deleteMessenger(userId: string, messengerId: string) {
+    try {
+      const messenger = await this.messengerRepository.findMessengerById(
+        userId,
+        messengerId
+      );
+
+      if (!messenger) {
+        return new NotFoundException("messengerId");
+      }
+
+      const deleteMessenger = await this.messengerRepository.deleteMessenger(
+        userId,
+        messengerId
+      );
+      return { data: deleteMessenger };
+    } catch (error) {
+      throw new InternalServerException();
+    }
+  }
 }
