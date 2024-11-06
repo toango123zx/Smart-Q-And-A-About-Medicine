@@ -23,6 +23,9 @@ export class MessengerRepsitory {
     content: string
   ): Promise<Messenger> {
     return await this.prismaService.messenger.create({
+      include: {
+        User: true,
+      },
       data: {
         content: content,
         boxChatId: boxChatId,
