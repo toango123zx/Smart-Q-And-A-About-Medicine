@@ -10,6 +10,7 @@ import { env } from "./config";
 import { errorHandler } from "./common";
 import { Modules } from "./modules";
 import { authRouter } from "./modules/auth/auth.router";
+import { createSystemChatBoxSpoke } from "./modules/database";
 
 const app: Express = express();
 
@@ -22,6 +23,11 @@ app.set("trust proxy", true);
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(helmet());
 app.use(morgan("combined"));
+
+const checkDatabase = async () => {
+  return await createSystemChatBoxSpoke();
+}
+checkDatabase();
 
 app.use("/health-check", Modules.healthCheckRouter);
 app.use("/auth", authRouter);

@@ -7,7 +7,14 @@ export class BoxChatRepository {
   async findBoxChatById(boxChatId: string, userId: string) {
     return await this.prismaService.boxChat.findUnique({
       include: {
-        Messenger: true,
+        Messenger: {
+          include:{
+            User: true
+          },
+          orderBy: {
+            createdAt: "desc",
+          }
+        }
       },
       where: {
         boxChatId: boxChatId,

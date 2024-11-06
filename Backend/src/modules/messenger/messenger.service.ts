@@ -4,11 +4,15 @@ import { Exception } from "@tsed/exceptions";
 import { InternalServerException, NotFoundException } from "@/exceptions";
 import { Messenger, User } from "@prisma/client";
 import { BoxChatRepository } from "../boxChat/boxChat.repository";
+import { SpokeAIHelper } from "@/helpers";
+import { UserRepository } from "../user/user.repository";
 
 export class MessengerService {
   constructor(
+    private readonly userRepository = new UserRepository(),
     private readonly messengerRepository = new MessengerRepsitory(),
-    private readonly boxChatRespository = new BoxChatRepository()
+    private readonly boxChatRespository = new BoxChatRepository(),
+    private readonly spokeAIHelper = new SpokeAIHelper()
   ) {}
 
   async findMessengerById(
@@ -49,7 +53,18 @@ export class MessengerService {
         boxChatId,
         content
       );
-      return { data: messenger };
+      const responseSpoke = await this.spokeAIHelper.axiosSpokeAIResponse(
+        content
+      );
+      const systemSpokeAI = await this.userRepository.findUserByUsername(
+        "systemSpokeAI"
+      );
+      if (!systemSpokeAI) {
+        return new NotFoundException("systemSpokeAI");
+      }
+      const responseSpokeMessenger = await this.messengerRepository.createMessenger(systemSpokeAI.userId, boxChatId, responseSpoke);
+
+      return { data: responseSpokeMessenger };
     } catch (error) {
       throw new InternalServerException();
     }
