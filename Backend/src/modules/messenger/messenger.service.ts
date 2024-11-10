@@ -47,6 +47,15 @@ export class MessengerService {
       if (!boxChat) {
         return new NotFoundException("boxChatId");
       }
+      let history = [];
+      for (let messenger of boxChat?.Messenger) {
+        if (messenger.User.name === "systemSpokeAI") {
+          history.push({ role: "model", parts: messenger.content });
+        } else {
+          history.push({ role: "user", parts: messenger.content });
+        }
+      }
+      history = history.reverse();
 
       const messenger = await this.messengerRepository.createMessenger(
         userId,
@@ -54,8 +63,10 @@ export class MessengerService {
         content
       );
       const responseSpoke = await this.spokeAIHelper.axiosSpokeAIResponse(
-        content
+        content,
+        history
       );
+      // const responseSpoke = "I'm sorry, I'm a bot, I can't answer that question";
       const systemSpokeAI = await this.userRepository.findUserByUsername(
         "systemSpokeAI"
       );
